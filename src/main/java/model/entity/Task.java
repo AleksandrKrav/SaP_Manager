@@ -23,15 +23,21 @@ public class Task  {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "group_id")
-    private Group group;
+    @JoinColumn(name = "groups_id")
+    private Groups groups;
 
-    public Group getGroup() {
-        return group;
+    public Task(Integer id, String title, String description) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
     }
 
-    public void setGroup(Group group) {
-        this.group = group;
+    public Groups getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Groups groups) {
+        this.groups = groups;
     }
 
     public User getUser() {
@@ -66,5 +72,12 @@ public class Task  {
         this.description = description;
     }
 
-
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

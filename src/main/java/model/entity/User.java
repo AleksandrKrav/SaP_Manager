@@ -22,12 +22,16 @@ public class User  {
     private List<Task> tasks;
 
     @ManyToMany
-    @JoinTable(name = "users_groups",
-            joinColumns = @JoinColumn(name = "group_id"),
+    @JoinTable(name = "users_groupses",
+            joinColumns = @JoinColumn(name = "groups_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<Group> groups;
+    private List<Groups> groupses;
 
-
+    public User(Integer id, String name, String password) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+    }
 
     public Integer getId() {
         return id;
@@ -61,12 +65,12 @@ public class User  {
         this.tasks = tasks;
     }
 
-    public List<Group> getGroups() {
-        return groups;
+    public List<Groups> getGroupses() {
+        return groupses;
     }
 
-    public void setGroups(List<Group> groups) {
-        this.groups = groups;
+    public void setGroupses(List<Groups> groupses) {
+        this.groupses = groupses;
     }
 
     @Override

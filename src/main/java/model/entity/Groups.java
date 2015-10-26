@@ -7,9 +7,9 @@ import java.util.List;
  * Created by alexandr on 25.10.15.
  */
 @Entity
-public class Group  {
+public class Groups {
     @Id
-    @Column(name = "group_id", nullable = false, unique = true)
+    @Column(name = "groups_id", nullable = false, unique = true)
     private Integer id;
     @Column(name = "NAME")
     private String name;
@@ -25,7 +25,13 @@ public class Group  {
         return id;
     }
 
-//    public void setId(Integer id) {
+    public Groups(Integer id, String name, String password) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+    }
+
+    //    public void setId(Integer id) {
 //        this.id = id;
 //    }
 
@@ -63,7 +69,7 @@ public class Group  {
 
     @Override
     public String toString() {
-        return "Group{" +
+        return "Groups{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
