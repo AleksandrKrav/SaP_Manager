@@ -30,16 +30,30 @@ public class Main {
         Task t = new Task();
         t.setTitle("lol");
         t.setDescription("lauch");
-        t.setUser(u);
 
         GroupService gs = new GroupService();
-        Groups
-        Set<Task> temp = new HashSet<Task>();
-        temp.add(t);
+        Groups g = new Groups();
+        g.setName("family");
+        g.setPassword("123");
 
-        u.setTasks(temp);
+        Set<Task> tasks = new HashSet<Task>();
+        Set<User> users = new HashSet<User>();
+        Set<Groups> groupses = new HashSet<Groups>();
+        tasks.add(t);
+        users.add(u);
+        groupses.add(g);
 
-        userService.addUser(u);
+        u.setTasks(tasks);
+        u.setGroupses(groupses);
+
+        t.setUser(u);
+        t.setGroups(g);
+
+        g.setUsers(users);
+        g.setTasks(tasks);
+
+//        userService.addUser(u);
+        gs.addGroup(g);
 //        ts.addGroup(t);
 
         em.close();
