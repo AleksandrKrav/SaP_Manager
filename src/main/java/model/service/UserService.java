@@ -11,7 +11,11 @@ import java.util.List;
  * Created by alexandr on 26.10.15.
  */
 public class UserService {
-    public EntityManager em = Persistence.createEntityManagerFactory("SAP").createEntityManager();
+    public EntityManager em ;
+
+    public UserService(EntityManager em) {
+        this.em = em;
+    }
 
     public void addUser(User user){
         em.getTransaction().begin();

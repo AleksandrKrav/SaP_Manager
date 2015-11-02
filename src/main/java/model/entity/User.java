@@ -26,10 +26,10 @@ public class User implements Serializable{
     @Column(name = "PASSWORD")
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade=CascadeType.ALL)
     private Set<Task> tasks;
 
-    @ManyToMany
+    @ManyToMany()
     @JoinTable(name = "users_groupses",
             joinColumns = @JoinColumn(name = "groups_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))

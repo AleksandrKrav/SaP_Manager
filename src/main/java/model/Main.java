@@ -1,5 +1,6 @@
 package model;
 
+import model.entity.Groups;
 import model.entity.Task;
 import model.entity.User;
 import model.service.GroupService;
@@ -9,19 +10,41 @@ import model.service.UserService;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by alexandr on 26.10.15.
  */
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        UserService userService = new UserService();
+        EntityManager em = Persistence.createEntityManagerFactory("SAP").createEntityManager();
+        UserService userService = new UserService(em);
 
         User u = new User();
         u.setName("Miha");
         u.setPassword("123");
 
+
+        TaskService ts = new TaskService(em);
+        Task t = new Task();
+        t.setTitle("lol");
+        t.setDescription("lauch");
+        t.setUser(u);
+
+        GroupService gs = new GroupService();
+        Groups
+        Set<Task> temp = new HashSet<Task>();
+        temp.add(t);
+
+        u.setTasks(temp);
+
         userService.addUser(u);
+//        ts.addGroup(t);
+
+        em.close();
+
+
     }
 //        EntityManagerFactory emf = Persistence.createEntityManagerFactory("SaP_manager");
 //        EntityManager em = emf.createEntityManager();

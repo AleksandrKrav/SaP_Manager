@@ -12,7 +12,11 @@ import java.util.List;
  */
 public class TaskService {
 
-    private EntityManager em = Persistence.createEntityManagerFactory("SAP").createEntityManager();
+    private EntityManager em ;
+
+    public TaskService(EntityManager em) {
+        this.em = em;
+    }
 
     public void addGroup(Task task){
         em.getTransaction().begin();

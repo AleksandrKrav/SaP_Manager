@@ -23,7 +23,7 @@ public class Groups implements Serializable{
     @Column(name = "PASSWORD")
     private String password;
 
-    @OneToMany(mappedBy = "groups")
+    @OneToMany(mappedBy = "groups", cascade=CascadeType.ALL)
     private Set<Task> tasks;
 
     @ManyToMany(mappedBy = "groupses")
