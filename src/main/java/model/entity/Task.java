@@ -2,19 +2,24 @@ package model.entity;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by alexandr on 25.10.15.
  */
 @Entity
-public class Task  {
+@Table(name = "Tasks")
+public class Task implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "task_id", nullable = false, unique = true)
-    private Integer id;
+    private Long id;
 
     @Column(name = "TITLE")
     private String title;
+
     @Column(name = "DESCRIPTION")
     private String description;
 
@@ -26,35 +31,16 @@ public class Task  {
     @JoinColumn(name = "groups_id")
     private Groups groups;
 
-    public Task(Integer id, String title, String description) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
+    public Task() {
     }
 
-    public Groups getGroups() {
-        return groups;
-    }
-
-    public void setGroups(Groups groups) {
-        this.groups = groups;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-//    public void setId(Integer id) {
-//        this.id = id;
-//    }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -70,6 +56,22 @@ public class Task  {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Groups getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Groups groups) {
+        this.groups = groups;
     }
 
     @Override

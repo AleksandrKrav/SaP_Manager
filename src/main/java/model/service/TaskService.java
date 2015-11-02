@@ -3,6 +3,7 @@ package model.service;
 import model.entity.Task;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -11,44 +12,65 @@ import java.util.List;
  */
 public class TaskService {
 
-    private EntityManager em;
+    private EntityManager em = Persistence.createEntityManagerFactory("SAP").createEntityManager();
 
-    public TaskService(EntityManager em) {
-        this.em = em;
+    public void addGroup(Task task){
+        em.getTransaction().begin();
+        em.merge(task);
+        em.getTransaction().commit();
     }
 
-    public Task createTask(int id, String title, String description) {
-        Task task = new Task(id, title, description);
-        em.persist(task);
-        return task;
+    public void delete(long id){
+        em.getTransaction().begin();
+        em.remove(get(id));
+        em.getTransaction().commit();
     }
 
-    public void removeTask(int id){
-        Task task = em.find(Task.class, id);
-        if (task != null){
-            em.remove(task);
-        }
-    }
-
-    public Task changeTaskName(int id, String title) {
-        Task task = em.find(Task.class, id);
-        if (task != null) {
-            task.setTitle(title);
-        }
-        return task;
-    }
-
-    public Task changeTaskDescription(int id, String description) {
-        Task task = em.find(Task.class, id);
-        if (task != null) {
-            task.setDescription(description);
-        }
-        return task;
-    }
-
-    public Task findTask(int id) {
+    public Task get(long id){
         return em.find(Task.class, id);
     }
+
+    public void update(Task t){
+        em.getTransaction().begin();
+        em.merge(t);
+        em.getTransaction().commit();
+    }
+//    public TaskService(EntityManager em) {
+//        this.em = em;
+//    }
+//
+//    public Task createTask(int id, String title, String description) {
+//        Task task = new Task(id, title, description);
+//        em.persist(task);
+//        return task;
+//    }
+//
+//    public void removeTask(int id){
+//        Task task = em.find(Task.class, id);
+//        if (task != null){
+//            em.remove(task);
+//        }
+//    }
+//
+//    public Task changeTaskName(int id, String title) {
+//        Task task = em.find(Task.class, id);
+//        if (task != null) {
+//            task.setTitle(title);
+//        }
+//        return task;
+//    }
+//
+//    public Task changeTaskDescription(int id, String description) {
+//        Task task = em.find(Task.class, id);
+//        if (task != null) {
+//            task.setDescription(description);
+//        }
+//        return task;
+//    }
+//
+//    public Task findTask(int id) {
+//        return em.find(Task.class, id);
+//    }
 
     public List<Task> findAllTasks() {
         TypedQuery<Task> query = em.createQuery("SELECT a FROM Task a", Task.class);

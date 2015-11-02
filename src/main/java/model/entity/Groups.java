@@ -1,39 +1,44 @@
 package model.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by alexandr on 25.10.15.
  */
 @Entity
-public class Groups {
+@Table(name = "Groups")
+public class Groups implements Serializable{
+    private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "groups_id", nullable = false, unique = true)
-    private Integer id;
+    private Long id;
+
     @Column(name = "NAME")
     private String name;
+
     @Column(name = "PASSWORD")
     private String password;
 
-    @OneToMany(targetEntity = Task.class)
-    private List<Task> tasks;
+    @OneToMany(mappedBy = "groups")
+    private Set<Task> tasks;
 
-    @ManyToMany(mappedBy = "groups")
-    private List<User> users;
-    public Integer getId() {
+    @ManyToMany(mappedBy = "groupses")
+    private Set<User> users;
+
+    public Groups() {
+    }
+
+    public Long  getId() {
         return id;
     }
 
-    public Groups(Integer id, String name, String password) {
+    public void setId(Long id) {
         this.id = id;
-        this.name = name;
-        this.password = password;
     }
-
-    //    public void setId(Integer id) {
-//        this.id = id;
-//    }
 
     public String getName() {
         return name;
@@ -51,19 +56,19 @@ public class Groups {
         this.password = password;
     }
 
-    public List<Task> getTasks() {
+    public Set<Task> getTasks() {
         return tasks;
     }
 
-    public void setTasks(List<Task> tasks) {
+    public void setTasks(Set<Task> tasks) {
         this.tasks = tasks;
     }
 
-    public List<User> getUsers() {
+    public Set<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(Set<User> users) {
         this.users = users;
     }
 
